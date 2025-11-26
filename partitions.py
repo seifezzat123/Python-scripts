@@ -1,6 +1,4 @@
 import struct
-
-# Only the types you requested
 def get_type_description(ptype):
     if ptype == 0x07:
         return "NTFS"
@@ -11,7 +9,6 @@ def get_type_description(ptype):
     else:
         return "Unknown"
 
-
 def parse_partition_entry(entry):
     boot_flag = entry[0]
     part_type = entry[4]
@@ -20,14 +17,12 @@ def parse_partition_entry(entry):
 
     return boot_flag, part_type, start_lba, size_sectors
 
-
 def analyze_mbr(img_path):
     print(f"\nAnalyzing disk image:\n{img_path}\n")
 
     with open(img_path, "rb") as f:
         mbr = f.read(512)
 
-    # MBR Signature Check
     if mbr[510] != 0x55 or mbr[511] != 0xAA:
         print(" Invalid ")
     else:
@@ -50,7 +45,6 @@ def analyze_mbr(img_path):
         print(f"  Start LBA      : {start_lba}")
         print(f"  Size (sectors) : {size_sectors}")
 
-        # Simple corruption checks
         if part_type != 0x00 and size_sectors == 0:
             print("  Non-zero partition type ")
 

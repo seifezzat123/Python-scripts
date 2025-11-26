@@ -1,16 +1,9 @@
 import os
 from Registry import Registry
 
-# --------------------------------------------
-# CHANGE THESE TO MATCH YOUR EXTRACTED FILES
-# --------------------------------------------
 USERS_PATH = r"D:\forensics cw\Users"
 SOFTWARE_HIVE = r"D:\forensics cw\SOFTWARE"
 
-
-# --------------------------------------------
-# PART 1 — USER ACCOUNTS (FROM USERS FOLDER)
-# --------------------------------------------
 def list_user_folders(path):
     users = []
 
@@ -23,19 +16,12 @@ def list_user_folders(path):
 
         if not os.path.isdir(full):
             continue
-
-        # skip system folders
         if name.lower() in ignore_profiles:
             continue
-
         users.append(name)
 
     return users
 
-
-# --------------------------------------------
-# PART 2 — SYSTEM REGISTRY INFO (FROM SOFTWARE HIVE)
-# --------------------------------------------
 def get_registry_info():
     try:
         reg = Registry.Registry(SOFTWARE_HIVE)
@@ -60,10 +46,6 @@ def get_registry_info():
 
     return info
 
-
-# --------------------------------------------
-# MAIN
-# --------------------------------------------
 if __name__ == "__main__":
 
     print("[+] Reading Users folder:", USERS_PATH)
@@ -71,8 +53,6 @@ if __name__ == "__main__":
 
     print("[+] Reading SOFTWARE hive:", SOFTWARE_HIVE)
     system_info = get_registry_info()
-
-    # ------- OUTPUT -------
     print("\n============================")
     print("   USER ACCOUNTS DETECTED")
     print("============================")
